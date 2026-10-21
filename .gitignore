@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# 模型与数据（体积大或受许可限制）
+models/
+data/
+papers/
+*.rar
+*.zip
+*.7z
+*.pdf
+
+# 实验输出
+outputs/
+*.db
+*.sqlite
+*.sqlite3
+
+# 密钥与私有配置
+configs/secrets.local.yaml
+.env
+*.key
+*.pem
+
+# 编辑器与系统
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 临时文件
+*.tmp
+*.log
+~$*
+
+# 原始材料目录（关键文档已复制到 docs/）
+/李春雨 202305567128面向大语言模型生成文本的水印嵌入与鲁棒检测系统设计与实现/
