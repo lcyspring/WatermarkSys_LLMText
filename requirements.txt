@@ -1,0 +1,20 @@
+# 核心算法（KGW 划分与检测）只依赖 numpy，可在无 torch 环境下测试
+numpy>=1.24
+
+# 生成与模型适配
+torch>=2.1
+transformers>=4.40
+
+# Web 与数据
+fastapi>=0.110
+uvicorn>=0.29
+jinja2>=3.1
+pydantic>=2.6
+
+# 质量评估
+bert-score>=0.3.13
+nltk>=3.8
+
+# 测试与工具
+pytest>=8.0
+pyyaml>=6.0

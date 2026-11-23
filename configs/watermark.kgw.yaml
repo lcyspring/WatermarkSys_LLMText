@@ -1,0 +1,21 @@
+# KGW 水印默认配置（开题阶段基线）
+algo: kgw
+algo_version: kgw-v1
+gamma: 0.25           # 固定
+delta: 0.0            # 0 = 真正无水印基线；实验另取 0.5 / 1 / 2
+context_width: 4      # h，固定
+prf: HMAC-SHA256      # 固定
+ngram_block: 4        # 重复 n-gram 屏蔽窗口
+key_id: default
+
+model_id: Qwen/Qwen2.5-0.5B-Instruct
+model_revision: ""     # 由 ModelAdapter.load() 实测后回填
+tokenizer_revision: ""
+dtype: fp16
+device: ""             # 空 = 自动 cuda/cpu
+
+temperature: 1.0
+top_p: 1.0
+top_k: 0
+max_new_tokens: 256
+seed: 0
