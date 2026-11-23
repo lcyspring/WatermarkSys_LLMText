@@ -15,8 +15,8 @@ d:/WatermarkSys_LLMText/
 │  ├─ configs/                    # 配置与密钥样例
 │  ├─ data/prompts/               # 提示集（入库）
 │  └─ outputs/                    # 运行产物（不入库）
-├─ README.md
-└─ THIRD_PARTY.md
+├─ README.md                      # 仓库入口（结构索引与快速开始）
+└─ docs/THIRD_PARTY.md             # 第三方资源与许可边界
 ```
 
 ## 一句话说明系统
@@ -83,4 +83,4 @@ python scripts/04_generate.py --mode hf --deltas 0,2 --limit 20 --max-new-tokens
 
 ## 许可证
 
-代码尚未确定开源许可证；第三方资源与许可边界见 [THIRD_PARTY.md](THIRD_PARTY.md)，确定前默认保留所有权利。
+代码尚未确定开源许可证；第三方资源与许可边界见 [docs/THIRD_PARTY.md](docs/THIRD_PARTY.md)，确定前默认保留所有权利。
