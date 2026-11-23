@@ -77,6 +77,7 @@ python scripts/04_generate.py --mode hf --deltas 0,2 --limit 20 --max-new-tokens
 | [任务完成对照表](docs/任务完成对照表_W1-W16.md) | W1—W16 逐项产物与状态 |
 | [总报告_离线预演](docs/reports/总报告_离线预演.md) | 全部实验数字 |
 | [真实权重链路验证报告](docs/reports/真实权重链路验证报告.md) | tiny-gpt2 真实权重验证 + 网络/算力实测 |
+| [GPU环境准备指南](docs/GPU环境准备指南.md) | 学校/免费云/租用三条路线、安装与跑实验命令 |
 | [阈值校准报告](docs/reports/阈值校准报告.md) | 阈值与 FPR 置信区间 |
 | [主结果报告](docs/reports/主结果报告.md) | 各 delta 档指标 |
 | [鲁棒性报告](docs/reports/鲁棒性报告.md) | 后处理扰动 |
