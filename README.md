@@ -56,6 +56,11 @@ python scripts/04_generate.py --mode hf --deltas 0,2 --limit 20 --max-new-tokens
 
 完整数据见 [总报告_离线预演](docs/reports/总报告_离线预演.md)。
 
+真实权重链路已单独验证（`sshleifer/tiny-gpt2`，真实 50,257 词表）：
+δ=0 平均 z=−0.29（0/6 检出），δ=2 平均 z=13.86（6/6 检出），详见
+[真实权重链路验证报告](docs/reports/真实权重链路验证报告.md)。
+主模型 Qwen2.5-0.5B 因实测带宽约 48 KB/s（1 GB 权重需约 6 小时）暂未执行。
+
 ## 关键约束
 
 - 参数：γ=0.25，h=4，PRF=HMAC-SHA256，δ ∈ {0, 0.5, 1, 2}
@@ -71,6 +76,7 @@ python scripts/04_generate.py --mode hf --deltas 0,2 --limit 20 --max-new-tokens
 | [工程文档](docs/工程文档_系统设计与使用说明.md) | 架构、模块、数据流、复现步骤 |
 | [任务完成对照表](docs/任务完成对照表_W1-W16.md) | W1—W16 逐项产物与状态 |
 | [总报告_离线预演](docs/reports/总报告_离线预演.md) | 全部实验数字 |
+| [真实权重链路验证报告](docs/reports/真实权重链路验证报告.md) | tiny-gpt2 真实权重验证 + 网络/算力实测 |
 | [阈值校准报告](docs/reports/阈值校准报告.md) | 阈值与 FPR 置信区间 |
 | [主结果报告](docs/reports/主结果报告.md) | 各 delta 档指标 |
 | [鲁棒性报告](docs/reports/鲁棒性报告.md) | 后处理扰动 |
