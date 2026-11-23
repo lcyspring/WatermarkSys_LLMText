@@ -12,22 +12,24 @@ env/
 htmlcov/
 
 # 模型与数据（体积大或受许可限制）
-models/
-data/
-papers/
+WatermarkSys_LLMText/models/
+WatermarkSys_LLMText/data/raw/
+WatermarkSys_LLMText/data/processed/
+WatermarkSys_LLMText/data/generated/
+WatermarkSys_LLMText/papers/
 *.rar
 *.zip
 *.7z
 *.pdf
 
-# 实验输出
-outputs/
+# 实验输出（报告类产物会复制到 docs/reports/）
+WatermarkSys_LLMText/outputs/
 *.db
 *.sqlite
 *.sqlite3
 
 # 密钥与私有配置
-configs/secrets.local.yaml
+WatermarkSys_LLMText/configs/secrets.local.yaml
 .env
 *.key
 *.pem
