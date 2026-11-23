@@ -18,8 +18,9 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 
-CODE_ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(CODE_ROOT / "src"))
+PACKAGE_SRC = Path(__file__).resolve().parents[2]   # .../WatermarkSys_LLMText/src
+CODE_ROOT = PACKAGE_SRC.parent                      # .../WatermarkSys_LLMText
+sys.path.insert(0, str(PACKAGE_SRC))
 
 from wm.config import WatermarkConfig  # noqa: E402
 from wm.model_adapter import SyntheticLM  # noqa: E402
