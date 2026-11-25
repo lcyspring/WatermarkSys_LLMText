@@ -17,12 +17,14 @@ class Detector:
         threshold: float | None = None,
         threshold_id: str = "",
         min_tokens: int = kgw.DEFAULT_MIN_TOKENS,
+        special_ids: Sequence[int] | None = None,
     ) -> None:
         self.config = config
         self.key = key
         self.threshold = threshold
         self.threshold_id = threshold_id
         self.min_tokens = min_tokens
+        self.special_ids = list(special_ids) if special_ids else []
 
     def detect_tokens(
         self,
@@ -39,6 +41,7 @@ class Detector:
             threshold=self.threshold,
             min_tokens=self.min_tokens,
             score_from=score_from,
+            special_ids=self.special_ids,
             key_id=self.config.key_id,
             threshold_id=self.threshold_id,
         )

@@ -119,6 +119,19 @@ def test_repetition_masking():
     assert n_mask < n_nomask
 
 
+def test_special_tokens_excluded():
+    """特殊 token（EOS/PAD）不计入 n、g 与重复 n-gram，结果与无特殊 token 一致。"""
+    seq = _build_all_green(80)
+    base = detect(seq, KEY_A, GAMMA, H, V, threshold=3.0, min_tokens=32)
+    special = 999  # 正常序列中不会出现的特殊 token
+    res = detect(seq + [special, special, special], KEY_A, GAMMA, H, V,
+                 threshold=3.0, min_tokens=32, special_ids=[special])
+    assert res["n"] == base["n"]
+    assert res["g"] == base["g"]
+    assert abs(res["z"] - base["z"]) < 1e-12
+    assert len(res["masked"]) == len(base["masked"]) + 3
+
+
 def test_detect_negative_control_uniform_random():
     """无水印文本（均匀随机 token）的 z 不应系统性偏高。"""
     import random

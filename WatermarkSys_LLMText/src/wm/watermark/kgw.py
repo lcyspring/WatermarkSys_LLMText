@@ -84,22 +84,29 @@ def count_green_hits(
     vocab_size: int,
     ngram_block: int = 4,
     score_from: int | None = None,
+    special_ids: Iterable[int] | None = None,
 ) -> Tuple[int, int, List[int]]:
     """统计有效位置数 n 与绿名单命中数 g。
 
     - 只对 ``score_from``（默认 = context_width）之后的位置计分，排除提示前缀；
+    - ``special_ids`` 中的特殊 token（EOS/PAD 等）不参与计分，位置记入 masked；
     - 若某位置会形成已出现过的重复 n-gram，则屏蔽该位置（不计入 n、g），
       避免模型自我强化导致统计量偏置；
     - 返回 (n, g, masked_positions)。
     """
     start = context_width if score_from is None else int(score_from)
     tokens = [int(t) for t in tokens]
+    specials = {int(s) for s in special_ids} if special_ids else set()
     n = 0
     g = 0
     masked: List[int] = []
     seen_ngrams: set = set()
 
     for t in range(start, len(tokens)):
+        if specials and tokens[t] in specials:
+            masked.append(t)
+            continue
+
         ctx = tokens[max(0, t - context_width):t]
 
         if ngram_block and t >= ngram_block - 1:
@@ -152,6 +159,7 @@ def detect(
     threshold: float | None = None,
     min_tokens: int = DEFAULT_MIN_TOKENS,
     score_from: int | None = None,
+    special_ids: Iterable[int] | None = None,
     key_id: str = "",
     threshold_id: str = "",
 ) -> dict:
@@ -173,6 +181,7 @@ def detect(
         n, g, masked = count_green_hits(
             tokens, key, gamma, context_width, vocab_size,
             ngram_block=ngram_block, score_from=score_from,
+            special_ids=special_ids,
         )
     except Exception as exc:  # noqa: BLE001 — 检测失败要显式记录，不能静默
         result.update(status=STATUS_FAILED, error=str(exc), n=0, g=0,

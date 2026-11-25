@@ -68,6 +68,7 @@ class GeneratePipeline:
                       config: WatermarkConfig) -> dict:
         t0 = time.time()
         prompt_ids = self.adapter.encode(prompt)
+        eos_id = None
         if isinstance(self.adapter, ModelAdapter):
             proc = make_processor(config, self.key) if config.delta != 0 else None
             new_ids = self.adapter.generate_ids(
@@ -78,6 +79,7 @@ class GeneratePipeline:
             )
             text = self.adapter.decode(new_ids)
             mode = "hf"
+            eos_id = self.adapter.tokenizer.eos_token_id
         else:
             new_ids = self.adapter.generate_ids(
                 prompt_ids, config, self.key,
@@ -86,7 +88,7 @@ class GeneratePipeline:
             mode = "synthetic"
 
         info = self.adapter.info() if hasattr(self.adapter, "info") else None
-        return {
+        record = {
             "gen_id": f"{config.config_hash()}-{prompt_id}",
             "prompt_id": prompt_id,
             "prompt": prompt,
@@ -105,6 +107,9 @@ class GeneratePipeline:
             "elapsed_ms": int((time.time() - t0) * 1000),
             "status": STATUS_COMPLETED,
         }
+        if eos_id is not None:
+            record["eos_token_id"] = int(eos_id)
+        return record
 
     def run(self, prompts: Iterable[tuple[str, str]],
             config: WatermarkConfig, append: bool = True) -> dict:
@@ -150,11 +155,13 @@ def detect_record(record: dict, config: WatermarkConfig, key: bytes,
 
     ids = list(record.get("prompt_token_ids", [])) + list(record["token_ids"])
     score_from = record.get("prompt_len")
+    eos_id = record.get("eos_token_id")
     res = kgw_detect(
         ids, key=key, gamma=config.gamma,
         context_width=config.context_width, vocab_size=config.vocab_size,
         ngram_block=config.ngram_block, threshold=threshold,
         min_tokens=32, score_from=score_from,
+        special_ids=[eos_id] if eos_id is not None else None,
         key_id=config.key_id, threshold_id=threshold_id,
     )
     return {
